@@ -1,0 +1,99 @@
+/*-- Description:
+  With this code we are able to blink an led using UART and SPI communication at once in ATMEGA328p. 
+  An led is connected to PC0 pin of slave microcontroller. When slave microcontroller receives character
+  'y' from master microcontroller through SPI communication, LED so connected is "ON" and when 'n' character 
+  received LED is "OFF".
+--*/
+
+/*-- About SPI communication
+  -> stands for Serial Peripheral Interface. 
+  -> synchronous serial communication used for short-distance communication, primarily in embedded system.
+  -> this interface was developed by Motorola in mid 1980s
+  -> full duplex mode using master-slave architecture (or main and secondary).
+  -> application include SD cards (Secure Digital), LCD, programming AVR chips etc.
+  -> also called four-wire serial bus.
+  -> SPI may be accurately described as a synchronous serial interfae, but different from SSI protocol, 
+     which is also four-wire protocol, provides onky simplex communication.
+  -> is one master and multi slave communication.
+  -> easy than UART and I2C.
+  -> less power comsumption as compared to I2C.
+  -> four pins for communication:
+      1. MISO (Master In Slave Out)
+          * also called SDO (Serial Data Out).
+          * input pin for master and output pin for slave.
+          * data transmission from slave to master takes place from this channel.
+      2. MOSI (Master Out Slave In)
+          * also called SDI (Serial Data In).
+          * output pin for master and input for slave.
+          * data transmission from master to slave takes from this channel.
+      3. SCK (Serial Clock)
+          * output for master and input for slave
+          * used for synchronization between master and slave
+      4. SS (Slave Select)
+          * often active low, output from master.
+          * if single slave device used SS pin may be fixed to logic low if slave permits it. Some slaves 
+            require a falling edge of the chip select signal to initiate an action like Maxim (American IC 
+            company) MAX 1242 ADC, which starts conversion on a high to low transition.
+          * in multi slave communication, for the selection of specific slave, only that slave's SS pin should
+            be in low state. An independent SS signal is required from the master for each slave device.
+--*/
+
+/*-- Code in Master ATMega328p:
+  -> to initialize as master ie. SPI_master_init() function:
+      * need to set MOSI and SCK as output. PB3 pin is MOSI and PB5, SCK
+      * if SS' (complement to denote active low state) pin is configured as an output, the pin is general output pin 
+        or works as GPIO (General Purpose Input Output) pin set to Output mode or it becomes as like other digital 
+        pins, it doesnot function as SS pin and can be used outside of SPI communication like to blink LED 
+        simultaneously at the time of SPI communication as well.
+      * if SS' pin is configured as input, it must be high to ensure Master SPI operation. If low SPI system 
+        interprates as another master selecting the device as slave to send data to it. (After this is related  to 
+        AVR register so will understand only if you have knowledge about SPI registers in AVR) In this case MSTR 
+        bit will be cleared and SPIF in SPSR will become set. User will have to set MSTR to re-enable SPI Master Mode.
+      * to enable the SPI communication as master, and set the clock rate as fck/16, SPE (SPI enable) bit, MSTR 
+        (Master or Slave Select) bit and SPR0 (SPI Clock Rate Select) bit should be high in SPCR (SPI Control Register).
+  -> to transmit character from master to slave ie. SPI_slave_init() function:
+      * first load the character that is to be sent to SPDR (SPI Data Register) like SPDR = 'a'.
+      * enable the slave by sending low logic to SS' pin of slave. (The logic low can be sent by configuring
+        any digital IO pin or GPIO pin as OUTPUT mode and sending LOW logic to it ie. it is not necessary to use SS' 
+        pin of master for selecting slave and in multi slave case as we have only one SS' pin we should use other 
+        pins for slave select operation.
+      * after that wait until transmission is complete. When transmission is completed SPIF (SPI Interrupt Flag) 
+        which is in SPSR (SPI Status Register) is set, need to wait while SPIF pin is in logic low state which 
+        can be done as while((SPSR & (1 << SPIF)) == 0).
+  -> All the UART related explanations will be in tutor file inside UART folder.
+--*/
+
+/*-- Code in Slave ATMega328p:
+  -> to initialize as slave ie SPI_slave_init() funcion:
+      * set MISO pin as OUTPUT as SS' pin as input (if we don't configure the pin as input or output using DDR then
+        the pin will be in INPUT state).
+      * set SPE bit to 1 in SPCR to enable SPI
+  -> to receive data in slave sent from master ie. SPI_receive_function():
+      * wait until data transmission from maste completes. When transmission is completed SPIF (SPI Interrupt Flag) 
+        which is in SPSR (SPI Status Register) is set, need to wait while SPIF pin is in logic low state which 
+        can be done as while((SPSR & (1 << SPIF)) == 0) (code same as in transmit).
+      * return the data stored in SPDR.
+  -> inside main function:
+      * initialize SPI slave mode.
+      * set PC0 pin to OUTPUT.
+      * continuously check the received data, if received character is 'y' sent logic high to PC0 pin ie. turn on LED
+        and if 'n' sent logic low to PC0 ie. turn off LED.
+        
+--*/
+      
+/*-- Contents left to explain in this tutorial
+  -> About UART which is used in the code.
+  -> How data transmission takes place in SPI?
+  -> SPI registers in AVR.
+--*/
+  
+        
+      
+     
+  
+     
+            
+            
+         
+  
+     
