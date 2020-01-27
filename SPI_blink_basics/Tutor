@@ -1,3 +1,8 @@
+/*-- Note: Although I hav used Arduino Uno R3, this code is for ATMEGA328p chips (both master and
+  slave as ATMEGA328p) and can be used for other AVRs as well, but first see the datasheet of that AVR 
+  because some registers name may be different like ATMEGA328p has UDR only instead of UDR0.
+--*/
+
 /*-- Description:
   With this code we are able to blink an led using UART and SPI communication at once in ATMEGA328p. 
   An led is connected to PC0 pin of slave microcontroller. When slave microcontroller receives character
@@ -36,6 +41,11 @@
             company) MAX 1242 ADC, which starts conversion on a high to low transition.
           * in multi slave communication, for the selection of specific slave, only that slave's SS pin should
             be in low state. An independent SS signal is required from the master for each slave device.
+--*/
+
+/*-- Circuit connection:
+  -> connect MOSI, MISO, SCK and SS pin of master (ATMEGA328p chip or Arduino UNO R3) with those of
+     slave (ATMEGA328p chip or Arduino UN0 R3)
 --*/
 
 /*-- Code in Master ATMega328p:
