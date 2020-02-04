@@ -20,7 +20,7 @@ Arduino to program your AVR. You can follow my steps to do so:
 
 ### /*--Steps to follow --*/
 ************************
- ###First Part (Make your arduino to act as programmer)
+ ### First Part (Make your arduino to act as programmer)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Connect your arduino to your computer.
 2. Open Arduino IDE.
@@ -91,4 +91,5 @@ show up. --*/
 -> Extract that to "~/sketchbook/hardware" in linux or see the location in the 
    Arduino preferences dialog.
 -> Restart the arduino and will see both atmega32 and atmega328 in Board.
-	### *Ta da your work is done.*
+
+### *Ta da your work is done.*
