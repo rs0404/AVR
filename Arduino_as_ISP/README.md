@@ -18,9 +18,9 @@ don't need another AVR programmer like USBasp, FTDI etc. You can use your
 Arduino to program your AVR. You can follow my steps to do so:
 
 
-/*--Steps to follow --*/
+###/*--Steps to follow --*/
 ************************
- First Part (Make your arduino to act as programmer)
+ ###First Part (Make your arduino to act as programmer)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Connect your arduino to your computer.
 2. Open Arduino IDE.
@@ -31,7 +31,7 @@ Arduino to program your AVR. You can follow my steps to do so:
 
 ----------------------------------------------------------------------------------------------------
 
- Second Part (Circuit Connections)
+ ###Second Part (Circuit Connections)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 (Note: Circuit connection is as refered to atmega32a but can be done with other AVRs as well with the
 help of pin diagram of that microcontroller, which tells which pin is what.
@@ -46,7 +46,7 @@ Knowing the pin no of MOSI, MISO, SCK, RESET, VCC and GND we can have connection
 
 -----------------------------------------------------------------------------------------------------
 
-Third part (Make Arduino IDE ready to accept the program written for your avr (for Atmega32a)
+###Third part (Make Arduino IDE ready to accept the program written for your avr (for Atmega32a)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Click on File.
 2. Click on Preferences.
