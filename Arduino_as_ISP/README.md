@@ -53,7 +53,7 @@ Knowing the pin no of MOSI, MISO, SCK, RESET, VCC and GND we can have connection
 3. Preferences dialog box will appear.
 4. In "Additional Boards Manager URLs" box copy the link:
 	 https://mcudude.github.io/MightyCore/package_MCUdude_MightyCore_index.json (for Atmega32a)
-	 https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json (for Atmega32a)
+	 https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json (for Atmega328)
 5. After that click OK.
 6. Click on Tools and go to Board
 7. Click on Boards Manager. Then wait for platform indexes to finish downloding.
